@@ -14,7 +14,17 @@
       </div>
     </nav>
     <div class="content">
-      <form class="row g-3">
+      <% if(locals.errors){ %>
+      <div id="alerts-container">
+        <div class="alert alert-danger" role="alert">
+          A simple danger alert—check it out!
+        </div>
+        <div class="alert alert-danger" role="alert">
+          A simple danger alert—check it out!
+        </div>
+      </div>
+      <% } %>
+      <form class="row g-3" action="/login" method="POST">
         <div class="col-md-6">
           <label for="email" class="form-label">Email</label>
           <input
