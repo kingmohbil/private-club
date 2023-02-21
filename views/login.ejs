@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('boilerplate', {title: 'login'}) %>
+    <link rel="stylesheet" href="../css/login.css" />
+  </head>
+  <body>
+    <nav class="navbar bg-dark fixed-top" data-bs-theme="dark">
+      <div class="container-fluid">
+        <div class="navbar-brand">Private Club</div>
+        <span class="nav-bar-links">
+          <a class="nav-bar-link" href="/signup">Sign Up</a>
+        </span>
+      </div>
+    </nav>
+    <div class="content">
+      <form class="row g-3">
+        <div class="col-md-6">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            value="<%= locals.email %>"
+          />
+        </div>
+        <div class="col-md-6">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            value="<%= locals.password %>"
+          />
+        </div>
+        <div class="col-12" id="login-btn-container">
+          <button type="submit" class="btn btn-dark">Login</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
