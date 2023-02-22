@@ -2,9 +2,16 @@ const debug = require('debug')('debug');
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const users = require('../models/users-model');
-exports.getSignup = (req, res) => {
-  res.render('signup');
-};
+exports.getSignup = [
+  (req, res, next) => {
+    debug(`User authantication status are: ${req.isAuthenticated()}`);
+    if (req.isAuthenticated()) return res.redirect('/');
+    next();
+  },
+  (req, res) => {
+    return res.render('signup');
+  },
+];
 
 exports.createUser = [
   body('firstName', '* First Name can`t be empty')
@@ -45,7 +52,7 @@ exports.createUser = [
     const isValid = validationResult(req, res);
     if (!isValid.isEmpty()) {
       debug('Validation Result in error');
-      res.render('signup', {
+      return res.render('signup', {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
@@ -70,10 +77,10 @@ exports.createUser = [
             }
           );
         });
-        res.redirect('/login');
+        return res.redirect('/login');
       } catch (err) {
         debug(err.message);
-        res.redirect('/signup');
+        return res.redirect('/signup');
       }
     }
   },
