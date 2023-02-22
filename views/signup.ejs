@@ -18,8 +18,9 @@
       <div id="alerts-container">
         <% locals.errors.forEach(element =>{ %>
         <div class="alert alert-danger" role="alert"><%= element.msg %></div>
+        <% }) %>
       </div>
-      <% })} %>
+      <% } %>
       <form action="/signup" method="POST" class="row g-3">
         <div class="col-md-6">
           <label for="first-name" class="form-label">First Name</label>
@@ -28,6 +29,10 @@
             class="form-control"
             id="first-name"
             name="firstName"
+            value="<%= locals.firstName %>"
+            minlength="1"
+            maxlength="20"
+            required
           />
         </div>
         <div class="col-md-6">
@@ -37,11 +42,22 @@
             class="form-control"
             id="-last-name"
             name="lastName"
+            value="<%= locals.lastName %>"
+            minlength="1"
+            maxlength="20"
+            required
           />
         </div>
         <div class="col-md-6">
           <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" id="email" name="email" />
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            value="<%= locals.email %>"
+            required
+          />
         </div>
         <div class="col-md-6">
           <label for="Password" class="form-label">Password</label>
@@ -50,6 +66,10 @@
             class="form-control"
             id="password"
             name="password"
+            value="<%= locals.password %>"
+            minlength="8"
+            maxlength="20"
+            required
           />
         </div>
         <div class="col-12" id="signup-btn-container">
