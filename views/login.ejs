@@ -16,33 +16,40 @@
     <div class="content">
       <% if(locals.errors){ %>
       <div id="alerts-container">
-        <div class="alert alert-danger" role="alert">
-          A simple danger alert—check it out!
-        </div>
-        <div class="alert alert-danger" role="alert">
-          A simple danger alert—check it out!
-        </div>
+        <% locals.errors.forEach(error=>{ %>
+        <div class="alert alert-danger" role="alert"><%= error.msg %></div>
+        <% }) %>
+      </div>
+      <% } %>
+      <!-- prettier-ignore-->
+      <% if(messages.error){ %>
+      <div id="alerts-container">
+        <div class="alert alert-danger" role="alert"><%= messages.error %></div>
       </div>
       <% } %>
       <form class="row g-3" action="/login" method="POST">
         <div class="col-md-6">
           <label for="email" class="form-label">Email</label>
           <input
-            type="email"
+            type="Email"
             class="form-control"
-            id="email"
+            id="Email"
             name="email"
             value="<%= locals.email %>"
+            required
           />
         </div>
         <div class="col-md-6">
-          <label for="password" class="form-label">Password</label>
+          <label for="Password" class="form-label">Password</label>
           <input
             type="password"
             class="form-control"
-            id="password"
+            id="Password"
             name="password"
             value="<%= locals.password %>"
+            min="8"
+            maxlength="20"
+            required
           />
         </div>
         <div class="col-12" id="login-btn-container">
