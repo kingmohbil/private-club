@@ -10,13 +10,15 @@
         <a class="navbar-brand active" href="/">Private Club</a>
         <ul class="nav justify-content-center">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#"
+            <a class="nav-link active" aria-current="page" href="/messages"
               >Create new Message</a
             >
           </li>
+          <% if(!locals.currentUser.vip) {%>
           <li class="nav-item">
-            <a class="nav-link" href="#">Join VIP Lounge</a>
+            <a class="nav-link" href="/vip">Join VIP Lounge</a>
           </li>
+          <% } %>
           <li class="nav-item">
             <form action="/logout?_method=DELETE" method="POST">
               <button class="nav-link" type="submit">Logout</button>
