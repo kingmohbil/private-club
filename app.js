@@ -29,6 +29,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride('_method'));
 app.use('/login', loginRoute);
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  return next();
+});
+
 app.use('/signup', signupRoute);
 app.use('/', homeRoute);
 
