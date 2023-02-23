@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('boilerplate', {title: 'messages'}) %>
+    <link rel="stylesheet" href="../css/messages.css" />
+  </head>
+  <body>
+    <nav class="navbar bg-dark fixed-top" data-bs-theme="dark">
+      <div class="container-fluid">
+        <a class="navbar-brand active" href="/">Private Club</a>
+        <ul class="nav justify-content-center">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#"
+              >Create new Message</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Join VIP Lounge</a>
+          </li>
+          <li class="nav-item">
+            <form action="/logout?_method=DELETE" method="POST">
+              <button class="nav-link" type="submit">Logout</button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="content">
+      <% if(locals.errors){ %>
+      <div id="alerts-container">
+        <% locals.errors.forEach(element =>{ %>
+        <div class="alert alert-danger" role="alert"><%= element.msg %></div>
+        <% }) %>
+      </div>
+      <% } %>
+      <form action="/messages" method="POST" class="row g-3">
+        <div class="col-md-12">
+          <label for="Title" class="form-label">Title</label>
+          <input
+            type="text"
+            class="form-control"
+            id="Title"
+            name="title"
+            value="<%= locals.title %>"
+            minlength="1"
+            maxlength="80"
+            required
+          />
+        </div>
+        <div class="col-md-12">
+          <label for="Message" class="form-label">Message</label>
+          <textarea
+            name="message"
+            id="Message"
+            cols="20"
+            rows="5"
+            class="form-control"
+            maxlength="160"
+            required
+          >
+<%= locals.message %></textarea
+          >
+        </div>
+        <div class="col-12" id="signup-btn-container">
+          <button class="btn btn-dark" type="submit">Create Message</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
