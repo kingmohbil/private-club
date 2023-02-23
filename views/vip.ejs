@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('boilerplate', {title: 'VIP Lounge'}) %>
+    <link rel="stylesheet" href="../css/messages.css" />
+  </head>
+  <body>
+    <nav class="navbar bg-dark fixed-top" data-bs-theme="dark">
+      <div class="container-fluid">
+        <a class="navbar-brand active" href="/">Private Club</a>
+        <ul class="nav justify-content-center">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/messages"
+              >Create new Message</a
+            >
+          </li>
+          <% if(!locals.currentUser.vip) {%>
+          <li class="nav-item">
+            <a class="nav-link" href="/vip">Join VIP Lounge</a>
+          </li>
+          <% } %>
+          <li class="nav-item">
+            <form action="/logout?_method=DELETE" method="POST">
+              <button class="nav-link" type="submit">Logout</button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="content">
+      <!-- prettier-ignore-->
+      <% console.log(locals) %> 
+      <% if(locals.errors){ %>
+      <div id="alerts-container">
+        <% locals.errors.forEach(element =>{ %>
+        <div class="alert alert-danger" role="alert"><%= element.msg %></div>
+        <% }) %>
+      </div>
+      <% } %>
+      <form action="/vip" method="POST" class="row g-3">
+        <div class="col-md-12">
+          <label for="Password" class="form-label"
+            >Enter The Secret Password:</label
+          >
+          <input
+            type="password"
+            name="password"
+            id="Password"
+            class="form-control"
+            minlength="8"
+            maxlength="20"
+            value="<%= locals.password %>"
+            required
+          />
+        </div>
+        <div class="col-12" id="signup-btn-container">
+          <button class="btn btn-dark" type="submit">
+            Join the VIP Lounge
+          </button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
