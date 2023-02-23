@@ -10,13 +10,15 @@ function initialize(passport) {
       password,
       done
     ) {
-      debug(`starting authantication for ${email}`);
+      debug(`starting authentication for ${email}`);
       users.findOne({ email: email }, (err, user) => {
         if (err) return done(err);
-        if (!user)
+        if (!user) {
+          debug(`authentication failed ${email} can't be found`);
           return done(null, false, {
             message: `User ${email} Cannot be found`,
           });
+        }
         bcrypt.compare(password, user.password, (err, success) => {
           debug(`${email} found and checking password`);
           if (err) {
@@ -27,15 +29,20 @@ function initialize(passport) {
             debug(`passwords doesn't match`);
             return done(null, false, { message: 'Password is incorrect' });
           }
-          debug(`user authanticated successfully`);
+          debug(`user authenticated successfully`);
           return done(null, user);
         });
       });
     })
   );
-  passport.serializeUser((user, done) => done(null, user.id));
-  passport.deserializeUser((id, done) => {
-    return done(null, users.findById(id));
+  passport.serializeUser(function (user, done) {
+    return done(null, user.id);
+  });
+
+  passport.deserializeUser(function (id, done) {
+    users.findById(id, function (err, user) {
+      return done(err, user);
+    });
   });
 }
 
