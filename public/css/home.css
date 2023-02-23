@@ -1,0 +1,15 @@
+.nav-link {
+  text-decoration: none;
+  color: white !important;
+  opacity: 0.6;
+  transition: opacity 10ms;
+}
+.nav-link:hover,
+.nav-link.active {
+  opacity: 1;
+}
+
+button[class='nav-link'] {
+  background-color: transparent;
+  border: none;
+}
