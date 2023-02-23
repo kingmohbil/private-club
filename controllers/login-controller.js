@@ -1,10 +1,8 @@
 const passport = require('passport');
 const { body, validationResult } = require('express-validator');
+const authenticationMiddleware = require('../middleware/authentication');
 exports.getLogin = [
-  (req, res, next) => {
-    if (req.isAuthenticated()) return res.redirect('/');
-    next();
-  },
+  authenticationMiddleware.notAuthenticated,
   (req, res) => {
     return res.render('login');
   },
