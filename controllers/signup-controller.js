@@ -1,13 +1,10 @@
 const debug = require('debug')('debug');
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
+const authenticationMiddleware = require('../middleware/authentication');
 const users = require('../models/users-model');
 exports.getSignup = [
-  (req, res, next) => {
-    debug(`User authantication status are: ${req.isAuthenticated()}`);
-    if (req.isAuthenticated()) return res.redirect('/');
-    next();
-  },
+  authenticationMiddleware.notAuthenticated,
   (req, res) => {
     return res.render('signup');
   },
