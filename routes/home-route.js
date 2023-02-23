@@ -7,13 +7,6 @@ router.get('/', controller.getHome);
 
 router.use('/', messageRouter);
 
-// router.post('/messages', controller.addMessage);
-
-router.delete('/logout', (req, res, next) => {
-  req.logout((err) => {
-    if (err) return next(err);
-  });
-  return res.redirect('/login');
-});
+router.delete('/logout', controller.logOut);
 
 module.exports = router;
