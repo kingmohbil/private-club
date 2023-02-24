@@ -1,11 +1,22 @@
 const debug = require('debug')('controllers');
+const messages = require('../models/message-model');
 const authenticatedMiddleware = require('../middleware/authentication');
 
 exports.getHome = [
   authenticatedMiddleware.authenticated,
-  (req, res) => {
+  async (req, res) => {
     debug(`Welcome back ${req.user.first_name}`);
-    return res.render('home');
+    messages
+      .find({}, (err, usersMessages) => {
+        if (err) {
+          debug(err.message);
+          return next(err);
+        }
+        return res.render('home', {
+          userMessages: usersMessages,
+        });
+      })
+      .populate('author', 'first_name last_name');
   },
 ];
 
