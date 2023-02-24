@@ -64,3 +64,24 @@ exports.addMessage = [
     }
   },
 ];
+
+exports.deleteMessage = async (req, res, next) => {
+  if (!req.user.vip)
+    return next(
+      new Error('The user does not have access to the requested request')
+    );
+  try {
+    const Message = await messages.findOne({ _id: req.params.id }, 'author');
+    const messageResult = await messages.deleteOne({ _id: req.params.id });
+    const userResult = await users.updateOne(
+      { _id: Message.author },
+      {
+        $pull: { messages: req.params.id },
+      }
+    );
+  } catch (error) {
+    debug(err.message);
+  } finally {
+    return res.redirect('/');
+  }
+};
