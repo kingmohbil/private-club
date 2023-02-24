@@ -7,11 +7,12 @@ exports.getHome = [
   async (req, res) => {
     debug(`Welcome back ${req.user.first_name}`);
     messages
-      .find({}, (err, usersMessages) => {
+      .find({}, null, { sort: { date_created: -1 } }, (err, usersMessages) => {
         if (err) {
           debug(err.message);
           return next(err);
         }
+        debug(usersMessages);
         return res.render('home', {
           userMessages: usersMessages,
         });
