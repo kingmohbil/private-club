@@ -1,3 +1,9 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: #e2e8f0;
+}
 .nav-link {
   text-decoration: none;
   color: white !important;
@@ -12,4 +18,17 @@
 button[class='nav-link'] {
   background-color: transparent;
   border: none;
+}
+
+.content {
+  margin-top: 5rem;
+  overflow: auto;
+}
+
+.cards-container {
+  margin: 0 auto;
+  width: 60%;
+}
+#placeholder {
+  cursor: default;
 }
