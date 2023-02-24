@@ -14,6 +14,8 @@
               >Create new Message</a
             >
           </li>
+          <!--prettier-ignore-->
+          <% const date = new Date() %>
           <% if(!locals.currentUser.vip) {%>
           <li class="nav-item">
             <a class="nav-link" href="/vip">Join VIP Lounge</a>
@@ -27,5 +29,68 @@
         </ul>
       </div>
     </nav>
+    <div class="content">
+      <div class="cards-container">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          <!--prettier-ignore-->
+          <% if(!currentUser.vip) { %>
+            <% userMessages.forEach(message=>{ %>
+          <div class="col">
+            <div class="card h-100 text-bg-dark">
+              <div class="card-header placeholder-glow">
+                <span class="placeholder col-7" id="placeholder"></span>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title placeholder-glow">
+                  <span class="placeholder col-6" id="placeholder"></span>
+                </h5>
+                <p class="card-text"><%= message.message %></p>
+              </div>
+              <div class="card-footer placeholder-glow">
+                <span class="placeholder col-6" id="placeholder"></span>
+              </div>
+            </div>
+          </div>
+          <!--prettier-ignore-->
+          <% }) %>
+          <%}%>
+          <% if(currentUser.vip) { %>
+            <% userMessages.forEach(message=>{ %>
+          <div class="col">
+            <div class="card h-100 text-bg-dark">
+              <div
+                class="card-header"
+                style="display: flex; justify-content: space-between"
+              >
+                <%= message.author.full_name %>
+                <form
+                  action="/messages/<%= message.id%>?_method=DELETE"
+                  method="POST"
+                >
+                  <button
+                    type="submit"
+                    class="btn-close btn-close-white me-2 m-auto"
+                    data-bs-dismiss="toast"
+                    aria-label="Close"
+                  ></button>
+                </form>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title"><%= message.title %></h5>
+                <p class="card-text"><%= message.message %></p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted" style="color: white !important"
+                  ><%= date.toLocaleString(message.date_created) %></small
+                >
+              </div>
+            </div>
+          </div>
+          <!--prettier-ignore-->
+          <% }) %> 
+          <% } %>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
